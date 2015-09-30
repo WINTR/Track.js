@@ -10,11 +10,25 @@ Google Analytics and Floodlight tracking made a little simpler
 
 1. Require Track.js as CommonJS, AMD, or global module. Also, make sure jQuery is around.
 2. Add the appropriate data attributes to your links to get things going
-3. Initialize the library: `new Share()`
+3. Initialize the library: `new Track()`
 
 ## Data Attributes 
 
-TODO
+`data-track` Turns on tracking for the link
+
+### Google Analytics Event Tracking
+
+If any of the following are present on the link, a custom GA event will be sent. 
+
+`data-track-category` The "category" for the event
+`data-track-action` The "action" for the event
+`data-track-label` The "label" for the event
+
+### Floodlight Tracking
+
+If the following is present for a link, a Floodlight iframe will be appended to the page's body element. The "src" should be the full URL provided ending with "ord=". 
+
+`data-track-floodlight-src` 
 
 ## Develop and Build
 
