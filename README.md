@@ -14,17 +14,17 @@ Google Analytics and Floodlight tracking made a little simpler
 
 ## Data Attributes 
 
-`data-track` Turns on tracking for the link
+`data-track`: Turns on tracking for the link
 
 ### Google Analytics Event Tracking
 
 If any of the following are present on the link, a custom GA event will be sent. 
 
-`data-track-category` The "category" for the event
+`data-track-category`: The "category" for the event
 
-`data-track-action` The "action" for the event
+`data-track-action`: The "action" for the event
 
-`data-track-label` The "label" for the event
+`data-track-label`: The "label" for the event
 
 ### Floodlight Tracking
 
@@ -34,7 +34,7 @@ If the following is present for a link, a Floodlight iframe will be appended to 
 
 ## Options
 
-`debug` Should be `true` or `false. Will turn on logging of trigged events.
+`debug`: Should be `true` or `false`. Will turn on logging of trigged events.
 
 ## Develop and Build
 
