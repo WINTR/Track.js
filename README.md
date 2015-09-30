@@ -4,7 +4,7 @@ Google Analytics and Floodlight tracking made a little simpler
 
 ## Installation
 
-`bower install track.js --save` **OR** `npm install track-js --save`
+`bower install track-js --save` **OR** `npm install track-js --save`
 
 ## Usage
 
