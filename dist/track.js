@@ -30,7 +30,7 @@
     };
 
     Track.prototype.handleClick = function($target, followLink) {
-      var action, category, floodlightSrc, label, link;
+      var action, category, fieldObject, floodlightSrc, label, link, nonInteraction;
       if (followLink == null) {
         followLink = false;
       }
@@ -38,13 +38,18 @@
       category = $target.attr("data-track-category");
       action = $target.attr("data-track-action");
       label = $target.attr("data-track-label");
+      nonInteraction = $target.attr("data-track-non-interaction");
+      fieldObject = {};
+      if (nonInteraction) {
+        fieldObject['nonInteraction'] = nonInteraction;
+      }
       floodlightSrc = $target.attr("data-track-floodlight-src");
       if (followLink) {
         link = $target.attr("href");
       }
       if (category || action || label) {
         this.eventQueueCounter++;
-        this.gaTrack(category, action, label, (function(_this) {
+        this.gaTrack(category, action, label, fieldObject, (function(_this) {
           return function() {
             return _this.checkEventQueue();
           };
@@ -60,17 +65,20 @@
       }
     };
 
-    Track.prototype.gaTrack = function(category, action, label, callback) {
+    Track.prototype.gaTrack = function(category, action, label, fieldObject, callback) {
       if (action == null) {
         action = "";
       }
       if (label == null) {
         label = "";
       }
+      if (fieldObject == null) {
+        fieldObject = {};
+      }
       if (callback == null) {
         callback = null;
       }
-      ga('send', 'event', category, action, label, {
+      ga('send', 'event', category, action, label, fieldObject, {
         'hitCallback': function() {
           if (callback) {
             return callback();
