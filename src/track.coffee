@@ -53,7 +53,7 @@ class Track
       @eventQueueCounter++
       @gaTrack category, action, label, fieldObject, =>
         @checkEventQueue()
-        # window.location.href = link if link
+        window.location.href = link if link
 
     if floodlightSrc
       @eventQueueCounter++
@@ -62,9 +62,10 @@ class Track
 
 
   gaTrack: (category, action = "", label = "", fieldObject = {}, callback = null) ->
-    ga 'send', 'event', category, action, label, fieldObject, 'hitCallback': ->
-      callback() if callback
-    
+    fieldObject['hitCallback'] = callback if callback
+
+    ga 'send', 'event', category, action, label, fieldObject
+
     if @settings.debug
       @logDebug("Google Analytics event fired (#{category}, #{action}, #{label}, #{JSON.stringify(fieldObject)})")
 

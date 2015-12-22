@@ -51,7 +51,10 @@
         this.eventQueueCounter++;
         this.gaTrack(category, action, label, fieldObject, (function(_this) {
           return function() {
-            return _this.checkEventQueue();
+            _this.checkEventQueue();
+            if (link) {
+              return window.location.href = link;
+            }
           };
         })(this));
       }
@@ -78,13 +81,10 @@
       if (callback == null) {
         callback = null;
       }
-      ga('send', 'event', category, action, label, fieldObject, {
-        'hitCallback': function() {
-          if (callback) {
-            return callback();
-          }
-        }
-      });
+      if (callback) {
+        fieldObject['hitCallback'] = callback;
+      }
+      ga('send', 'event', category, action, label, fieldObject);
       if (this.settings.debug) {
         return this.logDebug("Google Analytics event fired (" + category + ", " + action + ", " + label + ", " + (JSON.stringify(fieldObject)) + ")");
       }
