@@ -87,7 +87,7 @@ class Track
     @completeEventQueue() if @eventQueueCounter is 0
 
   completeEventQueue: ->
-    console.log "Queue emtpy!"
+    console.log "Queue empty!"
 
   logError: (message) ->
     console.error "Track.js error: #{message}"
