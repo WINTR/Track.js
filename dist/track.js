@@ -86,7 +86,7 @@
         }
       });
       if (this.settings.debug) {
-        return this.logDebug("Google Analytics event fired (" + category + ", " + action + ", " + label + ")");
+        return this.logDebug("Google Analytics event fired (" + category + ", " + action + ", " + label + ", " + (JSON.stringify(fieldObject)) + ")");
       }
     };
 

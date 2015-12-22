@@ -66,7 +66,7 @@ class Track
       callback() if callback
     
     if @settings.debug
-      @logDebug("Google Analytics event fired (#{category}, #{action}, #{label})") 
+      @logDebug("Google Analytics event fired (#{category}, #{action}, #{label}, #{JSON.stringify(fieldObject)})")
 
   floodlightTrack: (src, callback = null) ->
     axel = Math.random() + ""
