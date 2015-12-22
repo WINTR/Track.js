@@ -48,7 +48,7 @@ class Track
       @eventQueueCounter++
       @gaTrack category, action, label, =>
         @checkEventQueue()
-        # window.location.href = link if link
+        window.location.href = link if link
 
     if floodlightSrc
       @eventQueueCounter++
