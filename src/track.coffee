@@ -64,10 +64,13 @@ class Track
   gaTrack: (category, action = "", label = "", fieldObject = {}, callback = null) ->
     fieldObject['hitCallback'] = callback if callback
 
-    ga 'send', 'event', category, action, label, fieldObject
+    gaExists = typeof ga == 'function'
+    ga 'send', 'event', category, action, label, fieldObject if gaExists
 
+    unless gaExists
+      @logDebug "WARNING: ga function not present. Nothing is being sent to GA."
     if @settings.debug
-      @logDebug("Google Analytics event fired (#{category}, #{action}, #{label}, #{JSON.stringify(fieldObject)})")
+      @logDebug "Google Analytics event fired (#{category}, #{action}, #{label}, #{JSON.stringify(fieldObject)})"
 
   floodlightTrack: (src, callback = null) ->
     axel = Math.random() + ""

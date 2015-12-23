@@ -69,6 +69,7 @@
     };
 
     Track.prototype.gaTrack = function(category, action, label, fieldObject, callback) {
+      var gaExists;
       if (action == null) {
         action = "";
       }
@@ -84,7 +85,13 @@
       if (callback) {
         fieldObject['hitCallback'] = callback;
       }
-      ga('send', 'event', category, action, label, fieldObject);
+      gaExists = typeof ga === 'function';
+      if (gaExists) {
+        ga('send', 'event', category, action, label, fieldObject);
+      }
+      if (!gaExists) {
+        this.logDebug("WARNING: ga function not present. Nothing is being sent to GA.");
+      }
       if (this.settings.debug) {
         return this.logDebug("Google Analytics event fired (" + category + ", " + action + ", " + label + ", " + (JSON.stringify(fieldObject)) + ")");
       }
@@ -118,7 +125,7 @@
     };
 
     Track.prototype.completeEventQueue = function() {
-      return console.log("Queue emtpy!");
+      return console.log("Queue empty!");
     };
 
     Track.prototype.logError = function(message) {
