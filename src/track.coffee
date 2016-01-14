@@ -40,13 +40,18 @@ class Track
     category = $target.attr("data-track-category")
     action = $target.attr("data-track-action")
     label = $target.attr("data-track-label")
+    nonInteraction = $target.attr("data-track-non-interaction")
+
+    fieldObject = {}
+    fieldObject['nonInteraction'] = nonInteraction if nonInteraction
+
     floodlightSrc = $target.attr("data-track-floodlight-src")
 
     link = $target.attr("href") if followLink
 
     if category or action or label
       @eventQueueCounter++
-      @gaTrack category, action, label, =>
+      @gaTrack category, action, label, fieldObject, =>
         @checkEventQueue()
         window.location.href = link if link
 
@@ -56,12 +61,16 @@ class Track
         @checkEventQueue()
 
 
-  gaTrack: (category, action = "", label = "", callback = null) ->
-    ga 'send', 'event', category, action, label, 'hitCallback': ->
-      callback() if callback
-    
+  gaTrack: (category, action = "", label = "", fieldObject = {}, callback = null) ->
+    fieldObject['hitCallback'] = callback if callback
+
+    gaExists = typeof ga == 'function'
+    ga 'send', 'event', category, action, label, fieldObject if gaExists
+
+    unless gaExists
+      @logDebug "WARNING: ga function not present. Nothing is being sent to GA."
     if @settings.debug
-      @logDebug("Google Analytics event fired (#{category}, #{action}, #{label})") 
+      @logDebug "Google Analytics event fired (#{category}, #{action}, #{label}, #{JSON.stringify(fieldObject)})"
 
   floodlightTrack: (src, callback = null) ->
     axel = Math.random() + ""
@@ -81,7 +90,7 @@ class Track
     @completeEventQueue() if @eventQueueCounter is 0
 
   completeEventQueue: ->
-    console.log "Queue emtpy!"
+    console.log "Queue empty!"
 
   logError: (message) ->
     console.error "Track.js error: #{message}"
