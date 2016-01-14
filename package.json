@@ -1,6 +1,6 @@
 {
   "name": "track-js",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Google Analytics and Floodlight tracking made a little simpler",
   "main": "dist/track.js",
   "directories": {
